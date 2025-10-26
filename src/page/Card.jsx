@@ -3,10 +3,13 @@ import { useSelector, useDispatch } from 'react-redux';
 import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
 import { removeFromCart, updateQuantity, clearCart } from '../appStore/cartSlice';
+import ProductCard from '../component/card';
 import './Card.css';
 
 const Card = () => {
   const cart = useSelector((state) => state.cart);
+
+  console.log("cart +++++++++++++",cart)
   const dispatch = useDispatch();
 
   const handleQuantityChange = (id, newQuantity) => {
@@ -20,6 +23,8 @@ const Card = () => {
   const handleClearCart = () => {
     dispatch(clearCart());
   };
+
+  console.log("cart",cart)
 
   return (
     <Container className="card-page">
@@ -44,25 +49,14 @@ const Card = () => {
         <div className="cart-content">
           <div className="cart-items">
             {cart.items.map((item) => (
-              <div key={item.id} className="cart-item">
-                <div className="item-image">
-                  <img src={item.image || '/api/placeholder/120/150'} alt={item.name} />
-                </div>
-                <div className="item-details">
-                  <h3>{item.name}</h3>
-                  <p className="item-brand">{item.brand}</p>
-                  <p className="item-price">₹{item.price}</p>
-                  
-                  <div className="quantity-controls">
-                    <button onClick={() => handleQuantityChange(item.id, item.quantity - 1)}>-</button>
-                    <span>{item.quantity}</span>
-                    <button onClick={() => handleQuantityChange(item.id, item.quantity + 1)}>+</button>
-                  </div>
-                  
-                  <button className="remove-btn" onClick={() => handleRemoveItem(item.id)}>
-                    Remove
-                  </button>
-                </div>
+              <div key={item.id} className="cart-item-wrapper">
+                <ProductCard 
+                  product={item}
+                  inCart={true}
+                  showActions={false}
+                  onQuantityChange={handleQuantityChange}
+                  onRemove={handleRemoveItem}
+                />
                 <div className="item-total">
                   <p className="total-price">₹{item.price * item.quantity}</p>
                 </div>
