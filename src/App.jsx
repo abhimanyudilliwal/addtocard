@@ -13,7 +13,7 @@ function App() {
   return (
     <>
      <div className=''>
-      <Header />
+      {/* <Header /> */}
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/card' element={<Card />} />
