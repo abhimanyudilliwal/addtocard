@@ -17,7 +17,13 @@ const ProductCard = ({ product = []  , showActions = true, inCart = false , onQu
     <div className="product-card" key={product.id}>
       <div className="product-image">
         <img src={product.image} alt={product.category} />
-       
+        {/* {!inCart && (
+          <div className="quick-actions">
+            <Button variant="danger" size="sm" onClick={() => handleAddToCart(product)}>
+              Add to Card
+            </Button>
+          </div>
+        )} */}
       </div>
 
       <div className="product-details">
@@ -25,9 +31,10 @@ const ProductCard = ({ product = []  , showActions = true, inCart = false , onQu
         <p className="product-name">{product.description}</p>
         <div className="product-price d-flex justify-content-between align-items-center">
           <span className="current-price">₹{product.price}</span>
-          <Button variant="danger" size="sm" onClick={() => handleAddToCart(product)}>
+          {!inCart && ( <Button variant="danger" size="sm" onClick={() => handleAddToCart(product)}>
           Add to Card
-            </Button>
+            </Button>)}
+          {/* <span className="current-price">{product.category}</span> */}
 
           
         </div>
